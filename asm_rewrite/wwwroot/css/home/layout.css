@@ -1,0 +1,167 @@
+﻿/*-----------------------------------------------navbar------------------------------*/
+:root {
+    --blue: #2fa3ef;
+    --gray: #ebebeb;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100vh;
+}
+
+nav {
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ebebeb;
+}
+
+nav .bi-box-seam {
+    font-size: 30px;
+}
+
+.nav__brand {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    font-size: 30px;
+
+    cursor: pointer;
+}
+
+.nav__category {
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    border: 1px solid var(--gray);
+    border-radius: 10px;
+    position: relative;
+    cursor: default;
+}
+
+.nav__category:hover {
+    background: var(--gray);
+}
+
+.nav__category:hover .categories {
+    display: block;
+}
+
+.nav__category .categories {
+    display: none;
+    width: 100%;
+    z-index: 9999999;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid var(--gray);
+    background: #fff;
+}
+
+.categories__item {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    cursor: pointer;
+}
+
+.categories__item:hover {
+    background: var(--gray);
+}
+
+.nav__search {
+    flex: 1;
+    height: 50px;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav__search input {
+    flex: 1;
+    padding-inline: 10px;
+    border: none;
+    outline: none;
+    background: var(--gray);
+}
+
+.nav__search button {
+    width: 50px;
+    border: none;
+    outline: none;
+    background: var(--blue);
+    color: #fff;
+}
+
+.nav__search button:hover {
+    opacity: 0.6;
+}
+
+.nav__right {
+    display: flex;
+}
+
+.nav__right .item {
+    margin-inline: 10px;
+    font-size: 18px;
+    text-align: center;
+    color: #818181;
+    cursor: pointer;
+}
+
+.nav__right .item:hover {
+    color: var(--blue);
+}
+
+.nav__right .item i {
+    font-size: 30px;
+}
+
+/*-----------------------------------------------body------------------------------*/
+
+.render__body {
+    background: #ededed;
+    flex:1;
+
+    padding-bottom: 40px;
+}
+
+/*-----------------------------------------------footer------------------------------*/
+footer {
+    display: flex;
+    padding: 20px 40px;
+    background: #cfcfcf;
+}
+
+.footer__left {
+    flex: 2;
+    margin: auto 0;
+}
+
+.footer__center {
+    flex: 3;
+}
+
+.footer__right {
+    text-align: center;
+    flex: 1;
+}
+
+.footer__right .icons {
+    font-size: 30px;
+}

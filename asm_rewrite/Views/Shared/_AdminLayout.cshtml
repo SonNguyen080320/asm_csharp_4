@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/admin/layout.css" />
+    <link rel="stylesheet" href="~/css/admin/general.css" />
+</head>
+<body>
+    <nav>
+        <a class="nav__brand" asp-controller="admin" asp-action="index">
+            <i class="bi bi-box-seam"></i>
+            <span>GrayBox</span>
+        </a>
+
+        <div class="d-flex align-items-center">
+            <img class="nav__avatar" src="https://st3.depositphotos.com/1767687/16607/v/600/depositphotos_166074422-stock-illustration-default-avatar-profile-icon-grey.jpg" alt="Alternate Text" />
+            <div>admin</div>
+        </div>
+    </nav>
+
+    <div class="admin__body">
+        <div class="admin__sidebar">
+            <a class="sidebar__item" asp-controller="admin" asp-action="products">
+                <i class="bi bi-laptop"></i>
+                <span>Quản lí sản phẩm</span>
+            </a>
+
+            @*<a class="sidebar__item" asp-controller="admin" asp-action="categories">
+                <i class="bi bi-list"></i>
+                <span>Quản lí danh mục</span>
+            </a>*@
+
+            @*<a class="sidebar__item" asp-controller="admin" asp-action="orders">
+                <i class="bi bi-clipboard-check"></i>
+                <span>Quản lí đơn hàng</span>
+            </a>*@
+
+            <a class="sidebar__item" asp-controller="admin" asp-action="customers">
+                <i class="bi bi-people"></i>
+                <span>Quản lí khách hàng</span>
+            </a>
+
+            <a class="sidebar__item" asp-controller="admin" asp-action="users">
+                <i class="bi bi-file-person"></i>
+                <span>Quản lí người dùng</span>
+            </a>
+        </div>
+
+        <div class="p-4 flex-grow-1">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

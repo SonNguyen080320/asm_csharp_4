@@ -1,0 +1,70 @@
+﻿:root {
+    --light-blue: #bedff963;
+    --blue: #2fa3ef;
+    --gray: #ebebeb;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    padding: 20px 40px;
+
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+
+    background: var(--blue);
+    color: #fff;
+}
+
+.nav__brand {
+    color: #fff;
+    font-size: 20px;
+}
+
+.nav__brand:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav__avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+/*-------------------------------------------body------------------------*/
+
+.admin__body {
+    flex: 1;
+    display: flex;
+}
+
+.admin__sidebar {
+    width: 260px;
+    padding-top: 10px;
+    border-right: 2px solid #efefef;
+}
+
+.sidebar__item {
+    padding: 10px 20px;
+
+    display: block;
+
+    font-size: 18px;
+    text-decoration: none;
+    color: #000;
+
+    cursor: pointer;
+}
+
+.sidebar__item:hover {
+    text-decoration: none;
+    color: #000;
+    background: var(--light-blue);
+}

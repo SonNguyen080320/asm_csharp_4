@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asm_rewrite", "asm_rewrite\asm_rewrite.csproj", "{2ADE5B8F-1D8C-4672-AAD6-B7C15C1DC64E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2ADE5B8F-1D8C-4672-AAD6-B7C15C1DC64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ADE5B8F-1D8C-4672-AAD6-B7C15C1DC64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ADE5B8F-1D8C-4672-AAD6-B7C15C1DC64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ADE5B8F-1D8C-4672-AAD6-B7C15C1DC64E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0AFD058E-8D9C-40CA-BB01-9A7A4A4F989E}
+	EndGlobalSection
+EndGlobal

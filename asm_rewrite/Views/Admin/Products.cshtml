@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Quản lí sản phẩm";
+}
+
+<div>
+    <h3>Quản lí sản phẩm</h3>
+
+    <a asp-controller="admin">Thêm sản phẩm</a>
+
+    <div class="admin__search">
+        <input type="text" placeholder="Nhập từ khoá cần tìm" />
+        <button>
+            <i class="bi bi-search"></i>
+        </button>
+
+        <a style="margin-left: 20px; align-self: center;" asp-controller="admin">--Trở lại--</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>Mã</th>
+            <th>Ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Hành động</th>
+        </tr>
+        <tr style="text-align: center;">
+            <td style="width: 40px;">1</td>
+            <td>
+                <img width="60" src="/images/p1.png" alt="afjawf" />
+            </td>
+            <td style="max-width: 350px; text-align: left;">TLaptop HP VICTUS 16-e0168AX 4R0U6PA ( 16.1" Full HD/ 144Hz/Ryzen 7 5800H/8GB/512GB SSD/NVIDIA GeForce RTX 3050Ti/Windows 11 Home SL/2.4kg)</td>
+            <td>
+                <button class="btn btn-info">
+                    <i class="bi bi-pen"></i>
+                </button>
+                <button class="btn btn-secondary">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
