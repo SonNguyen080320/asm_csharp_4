@@ -38,6 +38,23 @@ nav {
     border-radius: 50%;
 }
 
+.nav__right {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav__right:hover .nav__dropdown {
+    display: block;
+}
+
+.nav__dropdown {
+    display: none;
+
+    position: absolute;
+    left: -50%;
+    top: 100%;
+}
 /*-------------------------------------------body------------------------*/
 
 .admin__body {

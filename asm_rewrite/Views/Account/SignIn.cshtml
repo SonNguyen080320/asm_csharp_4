@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "_AccountLayout";
+}
+
+<a asp-controller="home" asp-action="index">Quay lại trang chủ</a>
+
+
+<h2 class="text-center font-weight-bold mb-4">Đăng nhập</h2>
+
+<form>
+    <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" class="form-control" id="email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Mật khẩu *</label>
+        <input type="password" class="form-control" id="password" required>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary w-75 py-2">Đăng nhập</button>
+    </div>
+
+    <div class="text-center my-3 text-secondary font-italic">-hoặc-</div>
+
+    <div class="text-center">Chưa có tài khoản ? <a asp-controller="account" asp-action="signUp">Đăng ký</a></div>
+</form>

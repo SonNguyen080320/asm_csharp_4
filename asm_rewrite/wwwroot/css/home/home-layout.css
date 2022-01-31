@@ -23,9 +23,17 @@ body {
 
 nav {
     padding: 15px 40px;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 999999999999999;
+    background: #fff;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     border-bottom: 1px solid #ebebeb;
 }
 
@@ -88,8 +96,12 @@ nav .bi-box-seam {
     flex: 1;
     height: 50px;
     max-width: 600px;
+
     display: flex;
     justify-content: center;
+
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .nav__search input {
@@ -102,8 +114,10 @@ nav .bi-box-seam {
 
 .nav__search button {
     width: 50px;
-    border: none;
+
     outline: none;
+    border: none;
+
     background: var(--blue);
     color: #fff;
 }
@@ -132,13 +146,25 @@ nav .bi-box-seam {
     font-size: 30px;
 }
 
-/*-----------------------------------------------body------------------------------*/
+.nav__right .cart__quantity {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 50%;
+    background: red;
+}
 
+/*-----------------------------------------------body------------------------------*/
 .render__body {
     background: #ededed;
-    flex:1;
-
     padding-bottom: 40px;
+    flex: 1;
 }
 
 /*-----------------------------------------------footer------------------------------*/

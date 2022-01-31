@@ -1,5 +1,47 @@
 ﻿@{
     Layout = "_AdminLayout";
+    ViewData["Title"] = "Quản lí khách hàng";
 }
 
-<div>Customers</div>
+<div>
+    <h3>Quản lí khách hàng</h3>
+
+    <a asp-controller="admin">Thêm khách hàng</a>
+
+    <div class="admin__search">
+        <input type="text" placeholder="Nhập từ khoá cần tìm" />
+        <button>
+            <i class="bi bi-search"></i>
+        </button>
+
+        <a style="margin-left: 20px; align-self: center;" asp-controller="admin">--Trở lại--</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>Mã</th>
+            <th>Ảnh</th>
+            <th>Tên khách hàng</th>
+            <th>Email</th>
+            <th>SĐT</th>
+            <th>Hành động</th>
+        </tr>
+        <tr style="text-align: center;">
+            <td style="width: 40px;">1</td>
+            <td>
+                <img width="60" src="https://st3.depositphotos.com/1767687/16607/v/600/depositphotos_166074422-stock-illustration-default-avatar-profile-icon-grey.jpg" alt="afjawf" />
+            </td>
+            <td style="max-width: 350px; text-align: left;">Nguyễn Văn Dũng</td>
+            <td>dungnv31@gmail.com</td>
+            <td>01837920192</td>
+            <td>
+                <button class="btn btn-info">
+                    <i class="bi bi-pen"></i>
+                </button>
+                <button class="btn btn-secondary">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
