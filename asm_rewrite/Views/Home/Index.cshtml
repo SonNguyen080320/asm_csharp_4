@@ -3,6 +3,11 @@
     Layout = "_Layout";
 }
 
+@{ 
+    var topProducts = ViewBag.topProducts as List<Product>;
+    var bestSellerProducts = ViewBag.bestSellerProducts as List<Product>;
+}
+
 <div id="hero_banners" class="carousel slide" data-ride="carousel" data-interval="4000" pause="true">
     <ol class="carousel-indicators">
         <li data-target="#hero_banners" data-slide-to="0" class="active"></li>
@@ -37,45 +42,39 @@
     <div class="section__title">Sản phẩm nổi bật</div>
 
     <div class="home__products">
-        <a class="product" asp-controller="home" asp-action="productDetail" asp-route-id="awfawfafw">
-            <img class="product__img" src="./images/p1.png" alt="afjawf" />
-            <div class="product__name">Thiết bị mạng/Router Wifi ASUS XD4 (W- 3 pack)</div>
-            <div class="product__old-price">
-                <span>
-                    7.300.000 đ
-                </span>
+        @foreach (Product product in topProducts)
+        {
+            <a class="product" asp-controller="home" asp-action="productDetail" asp-route-alias="@product.Alias">
+                <img class="product__img" src="./images/@product.Image" alt="afjawf" />
+                <div class="product__name">@product.Name</div>
 
-                <div>
-                    <i class="bi bi-truck"></i>
-                    <span>Free</span>
+                <div class="product__old-price">
+                    @if (product.HotPrice != null)
+                    {
+                        <span>@product.Price.ToString("0,000") đ</span>
+                    }
+
+                    @if (product.IsFreeShip == true)
+                    {
+                        <div>
+                            <i class="bi bi-truck"></i>
+                            <span>Free</span>
+                        </div>
+                    }
                 </div>
-            </div>
-            <div class="product__price">7.420.000 đ</div>
-        </a>
-
-        <a class="product" asp-controller="home">
-            <img class="product__img" src="./images/p2.png" alt="afjawf" />
-            <div class="product__name">Chuột Newmen M007 (Đen)</div>
-            <div class="product__price">75.000 đ</div>
-        </a>
-
-        <a class="product" asp-controller="home">
-            <img class="product__img" src="./images/p3.png" alt="afjawf" />
-            <div class="product__name">TLaptop HP VICTUS 16-e0168AX 4R0U6PA ( 16.1" Full HD/ 144Hz/Ryzen 7 5800H/8GB/512GB SSD/NVIDIA GeForce RTX 3050Ti/Windows 11 Home SL/2.4kg)</div>
-            <div class="product__price">28.990.000 đ</div>
-        </a>
-
-        <a class="product" asp-controller="home">
-            <img class="product__img" src="./images/p4.png" alt="afjawf" />
-            <div class="product__name">Laptop ASUS FX506LH-HN188W ( 15.6" Full HD/Intel Core i5-10300H/8GB/512GB SSD/NVIDIA GeForce GTX 1650/Windows 11 Home/2.3kg)</div>
-            <div class="product__price">21.490.000 đ</div>
-        </a>
-
-        <a class="product" asp-controller="home">
-            <img class="product__img" src="./images/p5.png" alt="afjawf" />
-            <div class="product__name">Thiết bị mạng/Router Wifi ASUS XD4 (W- 3 pack)</div>
-            <div class="product__price">7.420.000 đ</div>
-        </a>
+                <div class="product__price">
+                    @if (product.HotPrice != null)
+                    {
+                        @product.HotPrice?.ToString("0,000")
+                    }
+                    else
+                    {
+                        @product.Price.ToString("0,000")
+                    }
+                    đ
+                </div>
+            </a>
+        }
     </div>
 </section>
 
@@ -83,34 +82,37 @@
     <div class="section__title">Bán chạy</div>
 
     <div class="home__products">
-        <a class="product" asp-controller="home">
-            <img class="product__img" src="./images/p1.png" alt="afjawf" />
-            <div class="product__name">Thiết bị mạng/Router Wifi ASUS XD4 (W- 3 pack)</div>
-            <div class="product__price">7.420.000 đ</div>
-        </a>
+        @foreach (Product product in bestSellerProducts)
+        {
+            <a class="product" asp-controller="home" asp-action="productDetail" asp-route-alias="@product.Alias">
+                <img class="product__img" src="./images/@product.Image" alt="afjawf" />
+                <div class="product__name">@product.Name</div>
+                <div class="product__old-price">
+                    @if (product.HotPrice != null)
+                    {
+                        <span>@product.Price.ToString()</span>
+                    }
 
-        <a class="product" asp-controller="home">
-            <img class="product__img" src="./images/p2.png" alt="afjawf" />
-            <div class="product__name">Chuột Newmen M007 (Đen)</div>
-            <div class="product__price">75.000 đ</div>
-        </a>
-
-        <a class="product" asp-controller="home">
-            <img class="product__img" src="./images/p3.png" alt="afjawf" />
-            <div class="product__name">TLaptop HP VICTUS 16-e0168AX 4R0U6PA ( 16.1" Full HD/ 144Hz/Ryzen 7 5800H/8GB/512GB SSD/NVIDIA GeForce RTX 3050Ti/Windows 11 Home SL/2.4kg)</div>
-            <div class="product__price">28.990.000 đ</div>
-        </a>
-
-        <a class="product" asp-controller="home">
-            <img class="product__img" src="./images/p4.png" alt="afjawf" />
-            <div class="product__name">Laptop ASUS FX506LH-HN188W ( 15.6" Full HD/Intel Core i5-10300H/8GB/512GB SSD/NVIDIA GeForce GTX 1650/Windows 11 Home/2.3kg)</div>
-            <div class="product__price">21.490.000 đ</div>
-        </a>
-
-        <a class="product" asp-controller="home">
-            <img class="product__img" src="./images/p5.png" alt="afjawf" />
-            <div class="product__name">Thiết bị mạng/Router Wifi ASUS XD4 (W- 3 pack)</div>
-            <div class="product__price">7.420.000 đ</div>
-        </a>
+                    @if (product.IsFreeShip == true)
+                    {
+                        <div>
+                            <i class="bi bi-truck"></i>
+                            <span>Free</span>
+                        </div>
+                    }
+                </div>
+                <div class="product__price">
+                    @if (product.HotPrice != null)
+                    {
+                        @product.HotPrice.ToString()
+                    }
+                    else
+                    {
+                        @product.Price.ToString()
+                    }
+                    đ
+                </div>
+            </a>
+        }
     </div>
 </section>

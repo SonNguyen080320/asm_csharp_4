@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/home/home-layout.css" />
     <link rel="stylesheet" href="~/css/home/home-index.css" />
-    <link rel="stylesheet" href="~/css/home/product_detail.css" />
     <link rel="stylesheet" href="~/css/home/cart.css" />
+    <link rel="stylesheet" href="~/css/home/detail.css" />
 </head>
 <body>
     <nav>
@@ -46,7 +46,7 @@
         </div>
 
         <div class="nav__search">
-            <input type="text" placeholder="Nhập từ khoá cần tìm"/>
+            <input type="text" placeholder="Nhập từ khoá cần tìm" />
             <button>
                 <i class="bi bi-search"></i>
             </button>
@@ -67,7 +67,7 @@
             </a>
         </div>
     </nav>
-    
+
     <div class="render__body">
         @RenderBody()
     </div>
@@ -100,7 +100,6 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

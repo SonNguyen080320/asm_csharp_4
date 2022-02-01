@@ -95,6 +95,7 @@ section {
 
 .home__products .product__old-price > span {
     text-decoration: line-through;
+    font-style: italic;
 }
 
 .home__products .product__old-price i {
