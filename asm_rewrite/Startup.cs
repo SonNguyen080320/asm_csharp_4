@@ -25,8 +25,15 @@ namespace asm_rewrite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // add db context
             services.AddDbContext<AsmContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AsmContext")));
+
+            // add session
+
+            services.AddSession(options => 
+            options.IdleTimeout = TimeSpan.FromMinutes(1));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +48,8 @@ namespace asm_rewrite
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 

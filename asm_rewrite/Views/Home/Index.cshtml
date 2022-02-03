@@ -90,7 +90,7 @@
                 <div class="product__old-price">
                     @if (product.HotPrice != null)
                     {
-                        <span>@product.Price.ToString()</span>
+                        <span>@product.Price.ToString("0,000")</span>
                     }
 
                     @if (product.IsFreeShip == true)
@@ -104,11 +104,11 @@
                 <div class="product__price">
                     @if (product.HotPrice != null)
                     {
-                        @product.HotPrice.ToString()
+                        @product.HotPrice?.ToString("0,000")
                     }
                     else
                     {
-                        @product.Price.ToString()
+                        @product.Price.ToString("0,000")
                     }
                     đ
                 </div>

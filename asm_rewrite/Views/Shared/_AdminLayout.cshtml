@@ -7,8 +7,8 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="~/css/admin/admin-layout.css" />
-    <link rel="stylesheet" href="~/css/admin/general.css" />
+    <link rel="stylesheet" href="~/css/admin/adminLayout.css" />
+    <link rel="stylesheet" href="~/css/admin/adminGeneral.css" />
 </head>
 <body>
     <nav>
@@ -30,27 +30,17 @@
         <div class="admin__sidebar">
             <a class="sidebar__item" asp-controller="admin" asp-action="products">
                 <i class="bi bi-laptop"></i>
-                <span>Quản lí sản phẩm</span>
+                <span class="sidebar_item-name">Quản lí sản phẩm</span>
             </a>
-
-            @*<a class="sidebar__item" asp-controller="admin" asp-action="categories">
-                <i class="bi bi-list"></i>
-                <span>Quản lí danh mục</span>
-            </a>*@
-
-            @*<a class="sidebar__item" asp-controller="admin" asp-action="orders">
-                <i class="bi bi-clipboard-check"></i>
-                <span>Quản lí đơn hàng</span>
-            </a>*@
 
             <a class="sidebar__item" asp-controller="admin" asp-action="customers">
                 <i class="bi bi-people"></i>
-                <span>Quản lí khách hàng</span>
+                <span class="sidebar_item-name">Quản lí khách hàng</span>
             </a>
 
             <a class="sidebar__item" asp-controller="admin" asp-action="users">
                 <i class="bi bi-file-person"></i>
-                <span>Quản lí người dùng</span>
+                <span class="sidebar_item-name">Quản lí người dùng</span>
             </a>
         </div>
 

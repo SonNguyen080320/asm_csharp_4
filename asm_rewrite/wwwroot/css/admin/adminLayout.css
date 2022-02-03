@@ -60,12 +60,17 @@ nav {
 .admin__body {
     flex: 1;
     display: flex;
+
+    position: relative;
 }
 
 .admin__sidebar {
-    width: 260px;
     padding-top: 10px;
     border-right: 2px solid #efefef;
+}
+
+.admin__sidebar:hover .sidebar_item-name {
+    display: initial;
 }
 
 .sidebar__item {
@@ -84,4 +89,8 @@ nav {
     text-decoration: none;
     color: #000;
     background: var(--light-blue);
+}
+
+.sidebar_item-name {
+    display: none;
 }

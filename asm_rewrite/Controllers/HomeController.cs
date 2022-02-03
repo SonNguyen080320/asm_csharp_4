@@ -13,8 +13,7 @@ namespace asm_rewrite.Controllers
     public class HomeController : Controller
     {
         private readonly AsmContext context;
-
-        public HomeController(ILogger<HomeController> logger, AsmContext context)
+        public HomeController(AsmContext context)
         {
             this.context = context;
         }
@@ -28,6 +27,12 @@ namespace asm_rewrite.Controllers
             ViewBag.topProducts = topProducts;
             ViewBag.bestSellerProducts = bestSellerProducts;
 
+            return View();
+        }
+
+        [Route("/cart")]
+        public IActionResult Cart()
+        {
             return View();
         }
 
