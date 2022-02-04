@@ -1,0 +1,133 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Thêm sản phẩm";
+}
+
+<div class="mb-4">
+    <a asp-controller="admin" asp-action="products">Quay lại</a>
+</div>
+
+<form>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="name">Tên</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="name">Danh mục</label>
+            <select class="custom-select mb-3" name="category">
+                <option selected>Chọn danh mục</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="alias">Alias</label>
+            <input type="text" class="form-control" id="alias" name="alias" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="import-price">Giá nhập</label>
+            <input type="number" class="form-control" id="import-price" name="import-price" required>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="price">Giá bán</label>
+            <input type="number" class="form-control" id="price" name="price" required>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="price">Giá giảm</label>
+            <input type="number" class="form-control" id="price" name="hot-price" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="brand">Thương hiệu</label>
+            <input type="text" class="form-control" id="brand" name="brand" required>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="quantity">Số lượng</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" required>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="d-flex justify-content-between">
+                <span>Sản phẩm nổi bật</span>
+                <input type="checkbox" class="form-check-inline" name="isTop" />
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <span>Bán chạy</span>
+                <input type="checkbox" class="form-check-inline" name="isBestSeller" />
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <span>Miễn phí vận chuyển</span>
+                <input type="checkbox" class="form-check-inline" name="isFreeShip" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="quantity">Hình ảnh</label>
+
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+            </div>
+
+            @*<img height="200" width="200" src="~/images/Bàn-phím-cơ-Logitech-Gaming-G813-removebg-preview.png" alt="product_image" />*@
+            <img height="120" width="120" src="~/images/default-product.png" alt="dfpd" />
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="quantity">Mô tả</label>
+            <textarea class="form-control" id="textAreaExample1" rows="4" name="description"></textarea>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div>Trạng thái</div>
+
+            <div class="form-check-inline">
+                <input class="form-check-input" checked type="radio" name="state" id="inStocks" value="inStocks">
+                <label class="form-check-label" for="inStocks">
+                    Còn hàng
+                </label>
+            </div>
+
+            <div class="form-check-inline">
+                <input class="form-check-input" type="radio" name="state" id="outOfStock" value="outOfStock">
+                <label class="form-check-label" for="outOfStock">
+                    Hết hàng
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary w-50 py-3" type="submit">Thêm</button>
+    </div>
+</form>
+
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}  

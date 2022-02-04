@@ -6,11 +6,8 @@
 @{
     Pager pager = new Pager();
 
-    int pageNo = 1;
-
     if(ViewBag.pager != null) {
         pager = ViewBag.pager;
-        pageNo = pager.CurrentPage;
     }
 
     var products = ViewBag.products as List<Product>;
@@ -19,15 +16,17 @@
 <div>
     <h3>Quản lí sản phẩm</h3>
 
-    <a asp-controller="admin">Thêm sản phẩm</a>
+    <div class="my-4">
+        <a asp-controller="admin" asp-action="addproduct">+ Thêm sản phẩm</a>
+    </div>
 
-    <form class="admin__search" asp-controller="Admin" asp-action="SearchProducts">
-        <input type="search" placeholder="Nhập từ khoá cần tìm" value="@ViewData["GetProducts"]" name="productText" required/>
+    <form class="admin__search" asp-controller="Admin" asp-action="products">
+        <input type="search" placeholder="Nhập từ khoá cần tìm" value="@ViewData["GetProducts"]" name="SearchText" required/>
         <button>
             <i class="bi bi-search"></i>
         </button>
 
-        <a style="margin-left: 20px; align-self: center;" asp-controller="admin">--Trở lại--</a>
+        <a style="margin-left: 20px; align-self: center;" asp-controller="admin">--Hiển thị toàn bộ--</a>
     </form>
 
     <table>
@@ -35,29 +34,27 @@
             <th>Mã</th>
             <th>Ảnh</th>
             <th>Tên sản phẩm</th>
+            <th>Giá</th>
             <th>Hành động</th>
         </tr>
         @if (pager.TotalPages > 0)
-        {
+         {
             @foreach (Product product in products)
-            {
+             {
                 <tr style="text-align: center;">
                     <td style="width: 40px;">@product.Id</td>
                     <td>
                         <img width="60" src="/images/@product.Image" alt="@product.Name" />
                     </td>
                     <td style="max-width: 350px; text-align: left;">@product.Name</td>
+                    <td>@product.Price.ToString("0,000") đ</td>
                     <td>
-                        <button class="btn btn-info">
-                            <i class="bi bi-pen"></i>
-                        </button>
-                        <button class="btn btn-secondary">
-                            <i class="bi bi-trash"></i>
-                        </button>
+                        <button class="btn btn-info">Sửa</button>
+                        <button class="btn btn-secondary">Xoá</button>
                     </td>
                 </tr>
-            }
-        }
+             }
+         }
     </table>
 
     @if (pager.TotalPages > 0)

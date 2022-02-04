@@ -24,9 +24,19 @@ namespace asm_rewrite.Controllers
         }
 
         [Route("admin/manage-products")]
-        public IActionResult Products(int page)
-        {
+        public IActionResult Products(string SearchText = "", int page = 1)
+        {   
             List<Product> products = new Product(context).GetAllProducts();
+            //
+
+            if (SearchText.Trim() != null && SearchText.Trim() != "")
+            {
+                products = products.Where(p => p.Name.ToLower().Contains(SearchText.ToLower())).ToList();
+            } else
+            {
+                products = new Product(context).GetAllProducts();
+            }
+
             //
             int pageSize = 5;
 
@@ -43,6 +53,12 @@ namespace asm_rewrite.Controllers
             ViewBag.products = data;
             ViewBag.pager = pager;
 
+            return View();
+        }
+
+        [Route("admin/manage-products/add")]
+        public IActionResult AddProduct()
+        {
             return View();
         }
 
