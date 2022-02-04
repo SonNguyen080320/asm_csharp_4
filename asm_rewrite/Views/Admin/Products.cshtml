@@ -21,14 +21,14 @@
 
     <a asp-controller="admin">Thêm sản phẩm</a>
 
-    <div class="admin__search">
-        <input type="text" placeholder="Nhập từ khoá cần tìm" />
+    <form class="admin__search" asp-controller="Admin" asp-action="SearchProducts">
+        <input type="search" placeholder="Nhập từ khoá cần tìm" value="@ViewData["GetProducts"]" name="productText" required/>
         <button>
             <i class="bi bi-search"></i>
         </button>
 
         <a style="margin-left: 20px; align-self: center;" asp-controller="admin">--Trở lại--</a>
-    </div>
+    </form>
 
     <table>
         <tr>

@@ -13,35 +13,25 @@
 </head>
 <body>
     <nav>
-        <a class="nav__brand" asp-controller="home" asp-action="index">
+        <a class="nav__brand" asp-controller="product" asp-action="index">
             <i class="bi bi-box-seam"></i>
             <span>GrayBox</span>
         </a>
+        @{
+            var categories = ViewBag.categories as List<Category>;
+            var cart = ViewBag.cart as List<Item>;
+        }
+
 
         <div class="nav__category">
             <i class="bi bi-list"></i>
             <div>Danh mục sản phẩm</div>
 
             <div class="categories">
-                <div class="categories__item">
-                    <i class="bi bi-laptop"></i>
-                    <div>Laptop</div>
-                </div>
-
-                <div class="categories__item">
-                    <i class="bi bi-headphones"></i>
-                    <div>Tai nghe</div>
-                </div>
-
-                <div class="categories__item">
-                    <i class="bi bi-keyboard"></i>
-                    <div>Bàn phím</div>
-                </div>
-
-                <div class="categories__item">
-                    <i class="bi bi-mouse2"></i>
-                    <div>Chuột</div>
-                </div>
+                @foreach (Category category in categories)
+                {
+                    <div class="categories__item">@category.Name</div>
+                }
             </div>
         </div>
 
@@ -58,10 +48,13 @@
                 <div>Đăng nhập</div>
             </a>
 
-            <a class="item" asp-controller="home" asp-action="cart">
+            <a class="item" asp-controller="cart" asp-action="index">
                 <div class="position-relative">
                     <i class="bi bi-cart3"></i>
-                    <span class="cart__quantity">2</span>
+                    @if (cart != null && cart?.Count() > 0)
+                    {
+                        <span class="cart__quantity">@cart.Count()</span>
+                    }
                 </div>
                 <div>Giỏ hàng</div>
             </a>

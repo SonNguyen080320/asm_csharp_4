@@ -24,9 +24,9 @@ namespace asm_rewrite.Controllers
         }
 
         [Route("admin/manage-products")]
-        public async Task<IActionResult> Products(int page)
+        public IActionResult Products(int page)
         {
-            List<Product> products = await context.Products.ToListAsync();
+            List<Product> products = new Product(context).GetAllProducts();
             //
             int pageSize = 5;
 
@@ -52,11 +52,11 @@ namespace asm_rewrite.Controllers
             return View();
         }
 
-        [Route("admin/manage-orders")]
-        public IActionResult Orders()
-        {
-            return View();
-        }
+        //[Route("admin/manage-orders")]
+        //public IActionResult Orders()
+        //{
+        //    return View();
+        //}
 
         [Route("admin/manage-customers")]
         public IActionResult Customers()

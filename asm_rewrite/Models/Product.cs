@@ -8,6 +8,8 @@ namespace asm_rewrite.Models
 {
     public class Product
     {
+        private readonly AsmContext context;
+
         public int Id { get; set; }
         public int CategoryId { get; set; }
         public string Name { get; set; }
@@ -23,5 +25,35 @@ namespace asm_rewrite.Models
         public bool IsTop { get; set; }
         public bool IsBestSeller { get; set; }
         public bool IsFreeShip { get; set; }
+
+        public Product(AsmContext context)
+        {
+            this.context = context;
+        }
+
+        public List<Product> GetAllProducts()
+        {
+            return context.Products.ToList();
+        }
+
+        public Product GetProductById(int id)
+        {
+            return context.Products.Single(p => p.Id == id);
+        }
+
+        public Product GetCurrentProduct(string alias)
+        {
+            return context.Products.Single(p => p.Alias == alias);
+        }
+
+        public List<Product> GetTopProducts()
+        {
+            return context.Products.Where(p => p.IsTop).ToList();
+        }
+
+        public List<Product> GetBestSellerProducts()
+        {
+            return context.Products.Where(p => p.IsBestSeller).ToList();
+        }
     }
 }
