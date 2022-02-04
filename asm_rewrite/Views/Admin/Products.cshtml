@@ -20,8 +20,8 @@
         <a asp-controller="admin" asp-action="addproduct">+ Thêm sản phẩm</a>
     </div>
 
-    <form class="admin__search" asp-controller="Admin" asp-action="products">
-        <input type="search" placeholder="Nhập từ khoá cần tìm" value="@ViewData["GetProducts"]" name="SearchText" required/>
+    <form class="admin__search" asp-controller="admin" asp-action="products" method="get">
+        <input type="search" placeholder="Nhập từ khoá cần tìm" value="@ViewData["GetProducts"]" name="SearchText" />
         <button>
             <i class="bi bi-search"></i>
         </button>
@@ -29,18 +29,19 @@
         <a style="margin-left: 20px; align-self: center;" asp-controller="admin">--Hiển thị toàn bộ--</a>
     </form>
 
-    <table>
-        <tr>
-            <th>Mã</th>
-            <th>Ảnh</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá</th>
-            <th>Hành động</th>
-        </tr>
-        @if (pager.TotalPages > 0)
-         {
+    @if (pager.TotalPages > 0)
+     {
+        <table>
+            <tr>
+                <th>Mã</th>
+                <th>Ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Hành động</th>
+            </tr>
+
             @foreach (Product product in products)
-             {
+            {
                 <tr style="text-align: center;">
                     <td style="width: 40px;">@product.Id</td>
                     <td>
@@ -53,35 +54,36 @@
                         <button class="btn btn-secondary">Xoá</button>
                     </td>
                 </tr>
-             }
-         }
-    </table>
+            }
+        </table>
+     }
+    else
+    {
+        <div class="text-center mt-4">Không có sản phẩm nào được tìm thấy</div>
+    }
+
+
 
     @if (pager.TotalPages > 0)
-    {
+     {
         <ul class="pagination mt-4 d-flex justify-content-center">
             @if (pager.CurrentPage > 1)
-             {
+            {
                 <li class="page-item"><a class="page-link" asp-controller="admin" asp-action="products" asp-route-page="@(pager.CurrentPage - 1)">Trang trước</a></li>
-             }
-            
-            
+            }
+
+
             @for (int page = pager.StartPage; page <= pager.EndPage; page++)
-             {
+            {
                 <li class="page-item @(page == pager.CurrentPage ? "active" : "")">
                     <a class="page-link" asp-controller="admin" asp-action="products" asp-route-page="@(page)">@(page)</a>
                 </li>
-             }
-        
-             @if (pager.CurrentPage >= 1 && pager.CurrentPage < pager.TotalPages)
-              {
-                 <li class="page-item"><a class="page-link" asp-controller="admin" asp-action="products" asp-route-page="@(pager.CurrentPage + 1)">Trang sau</a></li>
-              }
-            @*<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>*@
+            }
+
+            @if (pager.CurrentPage >= 1 && pager.CurrentPage < pager.TotalPages)
+            {
+                <li class="page-item"><a class="page-link" asp-controller="admin" asp-action="products" asp-route-page="@(pager.CurrentPage + 1)">Trang sau</a></li>
+            }
         </ul>
-    }
+     }
 </div>

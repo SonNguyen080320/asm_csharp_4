@@ -22,8 +22,8 @@ namespace asm_rewrite.Controllers
         [Route("/")]
         public IActionResult Index()
         {
-            var topProducts = new Product(context).GetTopProducts();
-            var bestSellerProducts = new Product(context).GetBestSellerProducts();
+            var topProducts = context.Products.Where(p => p.IsTop).ToList();
+            var bestSellerProducts = context.Products.Where(p => p.IsBestSeller).ToList();
             var categories = new Category(context).GetAllCategories();
             var cart = SessionExtensions.GetSessionData<List<Item>>(HttpContext.Session, "cart");
 
@@ -38,7 +38,7 @@ namespace asm_rewrite.Controllers
         [Route("/{alias}")]
         public IActionResult ProductDetail(string alias)
         {
-            var currentProduct = new Product(context).GetCurrentProduct(alias);
+            var currentProduct = context.Products.Single(p => p.Alias == alias);
             var categories = new Category(context).GetAllCategories();
             var cart = SessionExtensions.GetSessionData<List<Item>>(HttpContext.Session, "cart");
 

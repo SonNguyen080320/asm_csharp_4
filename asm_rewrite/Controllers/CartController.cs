@@ -47,7 +47,7 @@ namespace asm_rewrite.Controllers
         {
             if (SessionExtensions.GetSessionData<List<Product>>(HttpContext.Session, "cart") == null)
             {
-                var newItem = new Item { Product = new Product(context).GetProductById(id), Quantity = 1 };
+                var newItem = new Item { Product = context.Products.Single(p => p.Id == id), Quantity = 1 };
 
                 List<Item> cart = new List<Item>();
                 cart.Add(newItem);
@@ -63,7 +63,7 @@ namespace asm_rewrite.Controllers
                 }
                 else
                 {
-                    var newItem = new Item { Product = new Product(context).GetProductById(id), Quantity = 1 };
+                    var newItem = new Item { Product = context.Products.Single(p => p.Id == id), Quantity = 1 };
                     cart.Add(newItem);
                 }
                 SessionExtensions.SetSessionData(HttpContext.Session, "cart", cart);
