@@ -47,8 +47,10 @@ namespace asm_rewrite.Controllers
         {
             if (SessionExtensions.GetSessionData<List<Product>>(HttpContext.Session, "cart") == null)
             {
+                var newItem = new Item { Product = new Product(context).GetProductById(id), Quantity = 1 };
+
                 List<Item> cart = new List<Item>();
-                cart.Add(new Item { Product = new Product(context).GetProductById(id), Quantity = 1 });
+                cart.Add(newItem);
                 SessionExtensions.SetSessionData(HttpContext.Session, "cart", cart);
             }
             else
@@ -61,12 +63,13 @@ namespace asm_rewrite.Controllers
                 }
                 else
                 {
-                    cart.Add(new Item { Product = new Product(context).GetProductById(id), Quantity = 1 });
+                    var newItem = new Item { Product = new Product(context).GetProductById(id), Quantity = 1 };
+                    cart.Add(newItem);
                 }
                 SessionExtensions.SetSessionData(HttpContext.Session, "cart", cart);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
 
         [Route("remove/{id}")]
@@ -77,6 +80,22 @@ namespace asm_rewrite.Controllers
             cart.RemoveAt(index);
             SessionExtensions.SetSessionData(HttpContext.Session, "cart", cart);
             return RedirectToAction("Index");
+        }
+
+        [Route("decrease/{id}")]
+        public IActionResult Decrease(int id)
+        {
+            List<Item> cart = SessionExtensions.GetSessionData<List<Item>>(HttpContext.Session, "cart");
+           
+            int index = IsExist(id);
+
+            if (cart[index].Quantity > 1)
+            {
+                cart[index].Quantity--;
+                SessionExtensions.SetSessionData(HttpContext.Session, "cart", cart);
+            }
+
+            return RedirectToAction("index");
         }
     }
 }

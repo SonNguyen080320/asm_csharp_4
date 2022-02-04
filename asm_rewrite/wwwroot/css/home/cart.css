@@ -26,16 +26,6 @@
     align-self: center;
 }
 
-.cart__product .product__quantity button {
-    width: 40px;
-    height: 40px;
-
-    border: none;
-    outline: none;
-
-    font-size: 20px;
-}
-
 .cart__product .product__quantity .quantity {
     height: 40px;
     width: 40px;

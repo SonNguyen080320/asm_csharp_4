@@ -5,13 +5,13 @@
 
 @{ 
     var cart = ViewBag.cart as List<Item>;
+    var total = ViewBag.total;
 }
 
 <div class="cart__wrapper">
-    @ViewBag.total
     <h4>Giỏ hàng</h4>
 
-    @if (cart != null && cart?.Count() > 0)
+    @if (cart != null && cart?.Count() > 0 && total != null)
     {
         <div class="cart__content">
             <div class="cart__products">
@@ -21,9 +21,9 @@
                         <img src="./images/@item.Product.Image" alt="Alternate Text" width="70" />
                         <span>@item.Product.Name</span>
                         <div class="product__quantity">
-                            <button>-</button>
-                            <div class="quantity">1</div>
-                            <button>+</button>
+                            <a class="btn btn-light" asp-controller="cart" asp-action="decrease" asp-route-id="@item.Product.Id">-</a>
+                            <div class="quantity">@item.Quantity</div>
+                            <a class="btn btn-light" asp-controller="cart" asp-action="buy" asp-route-id="@item.Product.Id">+</a>
                         </div>
 
                         <div style="min-width: fit-content; margin: auto 0;">
@@ -78,11 +78,11 @@
                 <h4>Thanh toán</h4>
                 <div class="d-flex justify-content-between">
                     <div>Tạm tính</div>
-                    <div>0 đ</div>
+                    <div>@total.ToString("0,000") đ</div>
                 </div>
                 <div class="d-flex justify-content-between">
                     <div>Thành tiền</div>
-                    <div class="total-price">0 đ</div>
+                    <div class="total-price">@total.ToString("0,000") đ</div>
                 </div>
                 <div class="text-right">(Đã bao gồm VAT)</div>
 

@@ -5,11 +5,20 @@
     Layout = "_Layout";
 }
 
+@{ 
+    var cart = ViewBag.cart as List<Item>;
+}
+
 <div class="product-detail__wrapper">
     <div class="product-detail__content">
         <img class="product-detail__left" src="./images/@currentProduct.Image" alt="afaf" />
 
         <div class="product-detail__right">
+            <div>
+                <span>Mã:</span>
+                <input type="text" value="@currentProduct.Id" name="id" disabled style="width: 40px;" />
+            </div>
+
             <h4>@currentProduct.Name</h4>
 
             <div>Thương hiệu @currentProduct.Brand</div>
@@ -26,6 +35,12 @@
                 }
             </div>
 
+            @*<span class="d-flex justify-content-center align-items-center">
+                <button style="width: 40px;">-</button>
+                <input type="number" value="1" style="width: 40px; text-align: center"/>
+                <button style="width: 40px;">+</button>
+            </span>*@
+
             <div class="text-center">
                 <a class="btn btn-primary w-75 mt-4 py-3" asp-controller="cart" asp-action="buy" asp-route-id="@currentProduct.Id">Thêm vào giỏ hàng</a>
             </div>
@@ -33,7 +48,7 @@
     </div>
 
     <div class="product-detail__description">
-        <h4>Mô tả</h4>
+        <h4>Mô tả</h4>  
         <pre>@currentProduct.Description</pre>
     </div>
 </div>
