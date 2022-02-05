@@ -51,7 +51,7 @@
                     <td>@product.Price.ToString("0,000") đ</td>
                     <td>
                         <button class="btn btn-info">Sửa</button>
-                        <button class="btn btn-secondary">Xoá</button>
+                        <a class="btn btn-secondary" asp-controller="product" asp-action="deleteProduct" asp-route-id="@product.Id">Xoá</a>
                     </td>
                 </tr>
             }

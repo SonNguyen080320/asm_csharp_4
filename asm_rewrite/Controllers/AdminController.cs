@@ -28,6 +28,7 @@ namespace asm_rewrite.Controllers
             return View();
         }
 
+        // products - GET
         [Route("admin/manage-products")]
         [HttpGet]
         public IActionResult Products(string SearchText = "", int page = 1)
@@ -73,71 +74,63 @@ namespace asm_rewrite.Controllers
             return View();
         }
 
-        [Route("admin/manage-products/add")]
-        [HttpPost]
-        public async Task<IActionResult> AddProduct([Bind("CategoryId, Name, Alias, Brand, ImportPrice, Price, HotPrice, Quantity, Description, Image, IsDeleted, IsTop, IsBestSeller, IsFreeShip, ImageFile")] Product product)
-        {
-            if(ModelState.IsValid)
-            {
-                string imgPath = UploadFile(product.ImageFile);
+        //[Route("admin/manage-products/add")]
+        //[HttpPost]
+        //public async Task<IActionResult> AddProduct(
+        //    [Bind("CategoryId, Name, Alias, Brand, ImportPrice, Price, HotPrice, Quantity, Description, Image, IsDeleted, IsTop, IsBestSeller, IsFreeShip, ImageFile")] Product product)
+        //{
+        //    if(ModelState.IsValid)
+        //    {
+        //        string imgPath = UploadFile(product.ImageFile);
 
-                var newProduct = new Product
-                {
-                    Name = product.Name,
-                    CategoryId = product.CategoryId,
-                    Alias = product.Alias,
-                    Brand = product.Brand,
-                    ImportPrice = product.ImportPrice,
-                    Price = product.Price,
-                    HotPrice = product.HotPrice != null ? product.HotPrice : null,
-                    Quantity = product.Quantity,
-                    Description = product.Description,
-                    Image = imgPath,
-                    IsDeleted = product.IsDeleted,
-                    IsTop = product.IsTop,
-                    IsBestSeller = product.IsBestSeller,
-                    IsFreeShip = product.IsFreeShip
-                };
+        //        var newProduct = new Product
+        //        {
+        //            Name = product.Name,
+        //            CategoryId = product.CategoryId,
+        //            Alias = product.Alias,
+        //            Brand = product.Brand,
+        //            ImportPrice = product.ImportPrice,
+        //            Price = product.Price,
+        //            HotPrice = product.HotPrice != null ? product.HotPrice : null,
+        //            Quantity = product.Quantity,
+        //            Description = product.Description,
+        //            Image = imgPath,
+        //            IsDeleted = product.IsDeleted,
+        //            IsTop = product.IsTop,
+        //            IsBestSeller = product.IsBestSeller,
+        //            IsFreeShip = product.IsFreeShip
+        //        };
 
-                context.Products.Add(newProduct);
-                await context.SaveChangesAsync();
-            }
+        //        context.Products.Add(newProduct);
+        //        await context.SaveChangesAsync();
 
-            return RedirectToAction("AddProduct", "Admin");
-        }
+        //        return RedirectToAction("AddProduct", "Admin");
+        //    }
 
-        private string UploadFile(IFormFile ImageFile)
-        {
-            //string finalFileName;
+        //    var categories = new Category(context).GetAllCategories();
 
-            //string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-            ////string wwwRootPath = webHostEnvironment.WebRootPath;
-            //string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
-            //string extension = Path.GetExtension(product.ImageFile.FileName);
-            //product.Image = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-            //string path = finalFileName = Path.Combine(uploadsFolder, fileName);
-            //using (var fileStream = new FileStream(path, FileMode.Create))
-            //{
-            //    product.ImageFile.CopyTo(fileStream);
-            //}
+        //    ViewBag.categories = categories;
 
-            //return finalFileName;
+        //    return View(product);
+        //}
 
-            string uniqueFileName = null;
+        //private string UploadFile(IFormFile ImageFile)
+        //{
+        //    string uniqueFileName = null;
 
-            if (ImageFile != null)
-            {
-                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + ImageFile.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    ImageFile.CopyTo(fileStream);
-                }
-            }
+        //    if (ImageFile != null)
+        //    {
+        //        string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+        //        uniqueFileName = Guid.NewGuid().ToString() + "_" + ImageFile.FileName;
+        //        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+        //        using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //        {
+        //            ImageFile.CopyTo(fileStream);
+        //        }
+        //    }
 
-            return uniqueFileName;
-        }
+        //    return uniqueFileName;
+        //}
 
         //[Route("admin/manage-categories")]
         //public IActionResult Categories()
