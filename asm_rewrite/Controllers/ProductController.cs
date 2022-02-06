@@ -1,4 +1,5 @@
-﻿using asm_rewrite.Models;
+﻿using asm_rewrite.Enums;
+using asm_rewrite.Models;
 using asm_rewrite.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -107,6 +108,13 @@ namespace asm_rewrite.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(Product product)
         {
+            var existsName = await context.Products.Where(p => p.Name == product.Name).ToListAsync();
+
+            if (existsName[0] != null)
+            {
+                TempData["add-product__alert"] = AlertExtensions.ShowAlert(Alerts.Danger, "Tên sản phẩm đã tồn tại");
+            }
+
             if (ModelState.IsValid)
             {
                 string imgPath = FileExtension.UploadFile(product.ImageFile, webHostEnvironment);
@@ -131,6 +139,8 @@ namespace asm_rewrite.Controllers
 
                 await context.Products.AddAsync(newProduct);
                 await context.SaveChangesAsync();
+
+                TempData["add-product__alert"] = AlertExtensions.ShowAlert(Alerts.Success, "Thêm sản phẩm thành công");
 
                 return RedirectToAction("AddProduct", "Product");
             }
@@ -158,12 +168,18 @@ namespace asm_rewrite.Controllers
             return View();
         }
 
-        // Update product - PUT
+        // Update product - POST
         [Route("admin/manage-products/update/{id}")]
         [HttpPost]
         public async Task<IActionResult> UpdateProduct(int id, Product product)
         {
             var currentProduct = await context.Products.FindAsync(id);
+            var existsName = await context.Products.SingleAsync(p => p.Name == product.Name);
+
+            if (product.Name != currentProduct.Name && existsName != null)
+            {
+                TempData["update-product__alert"] = AlertExtensions.ShowAlert(Alerts.Danger, "Tên sản phẩm đã tồn tại");
+            }
 
             if (ModelState.IsValid && currentProduct != null)
             {              
@@ -187,6 +203,8 @@ namespace asm_rewrite.Controllers
                 currentProduct.IsFreeShip = product.IsFreeShip;
 
                 await context.SaveChangesAsync();
+
+                TempData["update-product__alert"] = AlertExtensions.ShowAlert(Alerts.Success, "Sửa sản phẩm thành công");
 
                 return RedirectToAction("updateProduct", "Product");
             } 

@@ -13,6 +13,11 @@
     <a asp-controller="product" asp-action="products">Quay lại</a>
 </div>
 
+<div>
+    @Html.Raw(TempData["update-product__alert"])
+</div>
+
+
 @if (currentProduct != null && currentCategory != null && categories != null)
 {
     <form asp-controller="product" asp-action="updateProduct" method="post" enctype="multipart/form-data">
@@ -178,14 +183,6 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
-        //var inputImg = document.getElementById("update-product__ImageFile");
-        //inputImg.setAttribute("required", null)
-        // load image
-        //var inputImg = document.getElementById("update-product__ImageFile");
-        //var imageName = inputImg.getAttribute("data");
-
-        //inputImg.value = '~/images' + imageName;
 
         // load description
         var textarea = document.getElementById("update-product__description");

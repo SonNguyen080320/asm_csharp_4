@@ -1,22 +1,31 @@
-﻿@{
+﻿@model asm_rewrite.Models.User
+
+@{
     ViewData["Title"] = "Đăng nhập";
     Layout = "_AccountLayout";
+
+    var alert = TempData["sign-up__alert"];
 }
 
-<a asp-controller="home" asp-action="index">Quay lại trang chủ</a>
+<div>
+    @Html.Raw(TempData["sign-up__alert"])
+</div>
 
+<a asp-controller="product" asp-action="index">Quay lại trang chủ</a>
 
 <h2 class="text-center font-weight-bold mb-4">Đăng nhập</h2>
 
-<form>
+<form asp-controller="account" asp-action="signIn" method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="email">Email *</label>
-        <input type="email" class="form-control" id="email" required>
+        <label asp-for="Email">Email *</label>
+        <input type="email" class="form-control" asp-for="Email" placeholder="Nhập Email">
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="password">Mật khẩu *</label>
-        <input type="password" class="form-control" id="password" required>
+        <label asp-for="Password">Mật khẩu *</label>
+        <input type="password" class="form-control" asp-for="Password" placeholder="Nhập mật khẩu">
+        <span asp-validation-for="Password" class="text-danger"></span>
     </div>
 
     <div class="text-center">
@@ -27,3 +36,18 @@
 
     <div class="text-center">Chưa có tài khoản ? <a asp-controller="account" asp-action="signUp">Đăng ký</a></div>
 </form>
+
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script>
+            //var signUp__alert = document.getElementById("sign-up__alert");
+            //window.onload = () => {
+            //    setTimeout(() => {
+            //        if (signUp__alert) {
+            //            signUp__alert.style.display = "none";
+            //        }
+            //    }, 2500);
+            //}
+    </script>
+}  
