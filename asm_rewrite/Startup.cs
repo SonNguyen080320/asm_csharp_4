@@ -1,6 +1,8 @@
 using asm_rewrite.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,14 +28,21 @@ namespace asm_rewrite
         {
             services.AddControllersWithViews();
 
-            // add db context
+            // db context - db: sql server
             services.AddDbContext<AsmContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AsmContext")));
 
-            // add session
-
+            // session
             services.AddSession(options => 
             options.IdleTimeout = TimeSpan.FromMinutes(1));
+
+            // cookie
+            services.AddAuthentication("Grandmas.Cookie")
+                .AddCookie("Grandmas.Cookie", config =>
+                {
+                    config.Cookie.Name = "Grandmas.Cookie";
+                    config.LoginPath = "/sign-in";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +62,7 @@ namespace asm_rewrite
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

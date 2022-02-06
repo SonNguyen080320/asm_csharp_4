@@ -143,6 +143,10 @@ nav .bi-box-seam {
     color: var(--blue);
 }
 
+.nav__right .item:hover #home__logout {
+    display: block;
+}
+
 .nav__right .item i {
     font-size: 30px;
 }

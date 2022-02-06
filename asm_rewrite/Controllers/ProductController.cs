@@ -1,6 +1,7 @@
 ﻿using asm_rewrite.Enums;
 using asm_rewrite.Models;
 using asm_rewrite.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ namespace asm_rewrite.Controllers
 
         // Home page - GET
         [Route("/")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Home()
         {
             var topProducts = await context.Products.Where(p => p.IsTop).ToListAsync();
             var bestSellerProducts = await context.Products.Where(p => p.IsBestSeller).ToListAsync();
@@ -58,6 +59,7 @@ namespace asm_rewrite.Controllers
         // products - GET
         [Route("admin/manage-products")]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Products(string SearchText = "", int page = 1)
         {
             List<Product> products = await context.Products.ToListAsync();
@@ -94,6 +96,7 @@ namespace asm_rewrite.Controllers
         // Add product - GET
         [Route("admin/manage-products/add")]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> AddProduct()
         {
             var categories = await context.Categories.ToListAsync();
@@ -106,6 +109,7 @@ namespace asm_rewrite.Controllers
         // Add product - POST
         [Route("admin/manage-products/add")]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddProduct(Product product)
         {
             var existsName = await context.Products.Where(p => p.Name == product.Name).ToListAsync();
@@ -155,6 +159,7 @@ namespace asm_rewrite.Controllers
         // Update product - GET
         [Route("admin/manage-products/update/{id}")]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> UpdateProduct(int id)
         {
             var currentProduct = await context.Products.FindAsync(id);
@@ -171,6 +176,7 @@ namespace asm_rewrite.Controllers
         // Update product - POST
         [Route("admin/manage-products/update/{id}")]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateProduct(int id, Product product)
         {
             var currentProduct = await context.Products.FindAsync(id);
@@ -221,6 +227,7 @@ namespace asm_rewrite.Controllers
 
         // Product - DELETE
         [Route("admin/manage-products/delete/${id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await context.Products.FindAsync(id);

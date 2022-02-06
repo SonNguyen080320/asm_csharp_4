@@ -13,7 +13,7 @@
 </head>
 <body>
     <nav>
-        <a class="nav__brand" asp-controller="product" asp-action="index">
+        <a class="nav__brand" asp-controller="product" asp-action="home">
             <i class="bi bi-box-seam"></i>
             <span>GrayBox</span>
         </a>
@@ -43,10 +43,29 @@
         </div>
 
         <div class="nav__right">
-            <a class="item" asp-controller="account" asp-action="signIn">
-                <i class="bi bi-person-circle"></i>
-                <div>Đăng nhập</div>
-            </a>
+
+
+
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="item d-flex align-items-center">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                        @User.Identity.Name
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" asp-controller="account" asp-action="signOut">Đăng xuất</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <a class="item" asp-controller="account" asp-action="signIn">
+                    <i class="bi bi-person-circle"></i>
+                    <div>Đăng nhập</div>
+                </a>
+            }
 
             <a class="item" asp-controller="cart" asp-action="index">
                 <div class="position-relative">

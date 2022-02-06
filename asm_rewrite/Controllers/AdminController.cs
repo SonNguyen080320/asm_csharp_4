@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace asm_rewrite.Controllers
 {
@@ -23,6 +24,7 @@ namespace asm_rewrite.Controllers
         }
 
         [Route("admin")]
+        [Authorize]
         public IActionResult Index()
         {
             return View();
