@@ -24,11 +24,11 @@ namespace asm_rewrite.Controllers
 
         // Home page - GET
         [Route("/")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var topProducts = context.Products.Where(p => p.IsTop).ToList();
-            var bestSellerProducts = context.Products.Where(p => p.IsBestSeller).ToList();
-            var categories = new Category(context).GetAllCategories();
+            var topProducts = await context.Products.Where(p => p.IsTop).ToListAsync();
+            var bestSellerProducts = await context.Products.Where(p => p.IsBestSeller).ToListAsync();
+            var categories = await context.Categories.ToListAsync();
             var cart = SessionExtensions.GetSessionData<List<Item>>(HttpContext.Session, "cart");
 
             ViewBag.topProducts = topProducts;
@@ -41,10 +41,10 @@ namespace asm_rewrite.Controllers
 
         // Product detail - GET
         [Route("/{alias}")]
-        public IActionResult ProductDetail(string alias)
+        public async Task<IActionResult> ProductDetail(string alias)
         {
-            var currentProduct = context.Products.Single(p => p.Alias == alias);
-            var categories = new Category(context).GetAllCategories();
+            var currentProduct = await context.Products.SingleAsync(p => p.Alias == alias);
+            var categories = await context.Categories.ToListAsync();
             var cart = SessionExtensions.GetSessionData<List<Item>>(HttpContext.Session, "cart");
 
             ViewBag.currentProduct = currentProduct;
@@ -54,11 +54,58 @@ namespace asm_rewrite.Controllers
             return View();
         }
 
-        // Product - ADD
-        [Route("admin/manage-products/index")]
+        // products - GET
+        [Route("admin/manage-products")]
+        [HttpGet]
+        public async Task<IActionResult> Products(string SearchText = "", int page = 1)
+        {
+            List<Product> products = await context.Products.ToListAsync();
+            //
+
+            if (SearchText != null && SearchText != "")
+            {
+                products = products.Where(p => p.Name.ToLower().Contains(SearchText.ToLower())).ToList();
+            }
+            else
+            {
+                products = context.Products.ToList();
+            }
+
+            //
+            int pageSize = 5;
+
+            if (page < 1) page = 1;
+
+            int totalItems = products.Count();
+
+            var pager = new Pager(totalItems, page, pageSize);
+
+            int skip = (page - 1) * pageSize;
+
+            var data = products.Skip(skip).Take(pager.PageSize).ToList();
+
+            ViewBag.products = data;
+            ViewBag.pager = pager;
+
+            return View();
+        }
+
+        // Add product - GET
+        [Route("admin/manage-products/add")]
+        [HttpGet]
+        public async Task<IActionResult> AddProduct()
+        {
+            var categories = await context.Categories.ToListAsync();
+
+            ViewBag.categories = categories;
+
+            return View();
+        }
+
+        // Add product - POST
+        [Route("admin/manage-products/add")]
         [HttpPost]
-        public async Task<IActionResult> AddProduct(
-            [Bind("CategoryId, Name, Alias, Brand, ImportPrice, Price, HotPrice, Quantity, Description, Image, IsDeleted, IsTop, IsBestSeller, IsFreeShip, ImageFile")] Product product)
+        public async Task<IActionResult> AddProduct(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -82,15 +129,74 @@ namespace asm_rewrite.Controllers
                     IsFreeShip = product.IsFreeShip
                 };
 
-                context.Products.Add(newProduct);
+                await context.Products.AddAsync(newProduct);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("AddProduct", "Admin");
+                return RedirectToAction("AddProduct", "Product");
             }
 
-            var categories = new Category(context).GetAllCategories();
+            var categories = context.Categories.ToList();
 
             ViewBag.categories = categories;
+
+            return View(product);
+        }
+
+        // Update product - GET
+        [Route("admin/manage-products/update/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> UpdateProduct(int id)
+        {
+            var currentProduct = await context.Products.FindAsync(id);
+            var categories = await context.Categories.ToListAsync();
+            var currentCategory = categories.Find(c => c.Id == currentProduct.CategoryId);
+
+            ViewBag.categories = categories;
+            ViewBag.currentProduct = currentProduct;
+            ViewBag.currentCategory = currentCategory;
+
+            return View();
+        }
+
+        // Update product - PUT
+        [Route("admin/manage-products/update/{id}")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateProduct(int id, Product product)
+        {
+            var currentProduct = await context.Products.FindAsync(id);
+
+            if (ModelState.IsValid && currentProduct != null)
+            {              
+                string imgPath = product.ImageFile != null
+                    ? FileExtension.UploadFile(product.ImageFile, webHostEnvironment)
+                    : currentProduct.Image;
+
+                currentProduct.Name = product.Name;
+                currentProduct.CategoryId = product.CategoryId;
+                currentProduct.Alias = product.Alias;
+                currentProduct.Brand = product.Brand;
+                currentProduct.ImportPrice = product.ImportPrice;
+                currentProduct.Price = product.Price;
+                currentProduct.HotPrice = product.HotPrice != null ? product.HotPrice : null;
+                currentProduct.Quantity = product.Quantity;
+                currentProduct.Description = product.Description;
+                currentProduct.Image = imgPath;
+                currentProduct.IsDeleted = product.IsDeleted;
+                currentProduct.IsTop = product.IsTop;
+                currentProduct.IsBestSeller = product.IsBestSeller;
+                currentProduct.IsFreeShip = product.IsFreeShip;
+
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("updateProduct", "Product");
+            } 
+
+            var categories = await context.Categories.ToListAsync();
+            var currentCategory = categories.Find(c => c.Id == currentProduct.CategoryId);
+
+            ViewBag.categories = categories;
+            ViewBag.currentProduct = currentProduct;
+            ViewBag.currentCategory = currentCategory;
 
             return View(product);
         }
@@ -103,7 +209,7 @@ namespace asm_rewrite.Controllers
             context.Products.Remove(product);
             await context.SaveChangesAsync();
 
-            return RedirectToAction("Products", "Admin");
+            return RedirectToAction("products", "product");
         }
     }
 }

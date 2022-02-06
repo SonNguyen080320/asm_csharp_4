@@ -19,7 +19,7 @@ namespace asm_rewrite.Controllers
         [Route("cart")]
         public IActionResult Index()
         {
-            var categories = new Category(context).GetAllCategories();
+            var categories = context.Categories.ToList();
             ViewBag.categories = categories;
 
             var cart = SessionExtensions.GetSessionData<List<Item>>(HttpContext.Session, "cart");

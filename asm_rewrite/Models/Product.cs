@@ -46,7 +46,7 @@ namespace asm_rewrite.Models
         public bool IsFreeShip { get; set; }
 
         [NotMapped]
-        [Required(ErrorMessage = "Vui lòng chọn ảnh")]
+        //[Required(ErrorMessage = "Vui lòng chọn ảnh")]
         public IFormFile ImageFile { get; set; }
     }
 }
